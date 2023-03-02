@@ -1,40 +1,16 @@
-import { useState, useEffect } from "react";
 import "./App.css";
-import ContentCharacters from "./components/ContentCharacters";
-import Form from "./components/Form";
+import {Routes, Route} from 'react-router-dom'
+import { ContainerGlobal } from "./components/ContainerGlobal";
+import { Details } from "./components/Details";
 
 function App() {
-  const [character, setCharacter] = useState("");
-  const [findCharacter, setFindCharacter] = useState("");
-  const [filterCharacter, setFilterCharacter] = useState([]);
-
-  useEffect(() => {
-    const fecthCharacter = async () => {
-      const url = await fetch(
-        `https://rickandmortyapi.com/api/character/?name=${character}`
-      );
-      const data = await url.json();
-      setFilterCharacter(data.results);
-    };
-    fecthCharacter();
-  }, [findCharacter]);
-
   return (
-    <div className="App p-5 text-white">
-      <section className="p-5 flex flex-col items-center max-[550px]:p-0">
-        <h1 className="text-[40px] mb-5">Rick y Morty</h1>
-        <Form
-          setFindCharacter={setFindCharacter}
-          setCharacter={setCharacter}
-          character={character}
-        />
-        <ContentCharacters
-          setFilterCharacter={setFilterCharacter}
-          character={character}
-          filterCharacter={filterCharacter}
-        />
-      </section>
-    </div>
+    <>
+      <Routes>
+        <Route path='/Rick-y-Morty-React-Vite' element={<ContainerGlobal/>} />
+        <Route path='/Rick-y-Morty-React-Vite/:nombre' element={<Details/>} />
+      </Routes>
+    </>
   );
 }
 
